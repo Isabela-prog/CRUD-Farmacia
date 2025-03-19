@@ -1,9 +1,14 @@
 package com.generation.farmacia.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import com.generation.farmacia.model.Categoria;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +36,10 @@ public class Produto {
 	@NotBlank(message = "o público do produto é obrigatório - infantil/ adulto/ todas")
 	@Size(min = 6, max = 12, message = "o formato do público precisa ser maior que 6 e menor que 12 caractéres - Infantil/ adulto/ todos")
 	private String publico;
+	
+	@ManyToOne // classe postagem many, classe é one
+	@JsonIgnoreProperties("produto") //
+	private Categoria categoria;
 
 	public Long getId() {
 		return id;
@@ -72,4 +81,12 @@ public class Produto {
 		this.publico = publico;
 	}
 
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+	
 }
